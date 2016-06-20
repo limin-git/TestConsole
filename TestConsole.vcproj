@@ -177,6 +177,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TestReadConsole.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\TestReadConsoleInput.cpp"
 				>
 			</File>
@@ -186,6 +190,14 @@
 			</File>
 			<File
 				RelativePath=".\TestWriteConsole.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TestWriteConsoleOutput.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TestWriteConsoleOutputCharacter.cpp"
 				>
 			</File>
 		</Filter>
@@ -231,6 +243,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TestReadConsole.h"
+				>
+			</File>
+			<File
 				RelativePath=".\TestReadConsoleInput.h"
 				>
 			</File>
@@ -240,6 +256,14 @@
 			</File>
 			<File
 				RelativePath=".\TestWriteConsole.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TestWriteConsoleOutput.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TestWriteConsoleOutputCharacter.h"
 				>
 			</File>
 		</Filter>

@@ -22,6 +22,12 @@ TestCreateConsoleScreenBuffer::~TestCreateConsoleScreenBuffer()
 
 void TestCreateConsoleScreenBuffer::create_buffer()
 {
+    std::wstring ws = L"hello, world!\n";
+
+    // write something to std output
+    WriteConsoleW( m_std_output_handle, ws.c_str(), ws.size(), 0, 0 );
+    _getch();
+
     // create a new buffer
     HANDLE new_buffer = CreateConsoleScreenBuffer( GENERIC_READ | GENERIC_WRITE, 0, 0, CONSOLE_TEXTMODE_BUFFER, 0 );
 
@@ -30,10 +36,19 @@ void TestCreateConsoleScreenBuffer::create_buffer()
     SetStdHandle( STD_OUTPUT_HANDLE, new_buffer );
 
     // write something to new buffer
+    ws = L"中华人民共和国\n";
     SetConsoleOutputCP( 936 );
     HANDLE std_output_handle = GetStdHandle( STD_OUTPUT_HANDLE );
-    std::wstring ws = L"中华人民共和国\n";
     WriteConsoleW( std_output_handle, ws.c_str(), ws.size(), 0, 0 );
+    CloseHandle( new_buffer );
 
     _getch();
 }
+
+
+void TestCreateConsoleScreenBuffer::get_new_buffer_info()
+{
+    //HANDLE new_buffer = CreateConsoleScreenBuffer( GENERIC_READ | GENERIC_WRITE, 0, 0, CONSOLE_TEXTMODE_BUFFER, 0 );
+    //GetConsoleScreenBufferInfo(  )
+}
+

@@ -8,6 +8,9 @@
 #include "TestReadConsoleInput.h"
 #include "TestGetConsoleMode.h"
 #include "TestSetConsoleMode.h"
+#include "TestWriteConsoleOutput.h"
+#include "TestWriteConsoleOutputCharacter.h"
+#include "TestReadConsole.h"
 
 
 void main()
@@ -23,7 +26,7 @@ void main()
         TestWriteConsole test;
     }
 
-    if ( 1 )
+    if ( 0 )
     {
         TestReadConsoleInput test;
     }
@@ -36,6 +39,21 @@ void main()
     if ( 0 )
     {
         TestSetConsoleMode test;
+    }
+
+    if ( 0 )
+    {
+        TestWriteConsoleOutput test;
+    }
+
+    if ( 1 )
+    {
+        TestWriteConsoleOutputCharacter test;
+    }
+
+    if ( 0 )
+    {
+        TestReadConsole test;
     }
 
     _getch();

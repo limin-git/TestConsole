@@ -9,6 +9,7 @@ public:
     ~TestCreateConsoleScreenBuffer();
 
     void create_buffer();
+    void get_new_buffer_info();
 
 public:
 
