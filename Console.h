@@ -172,6 +172,30 @@ public:
     {
         SetConsoleCtrlHandler( console_ctrl_handler, TRUE );
     }
+
+
+    static void disable_console_mode( DWORD disable_mode )
+    {
+        // must call this before SetConsoleMode
+        HANDLE stdinput = GetStdHandle(STD_INPUT_HANDLE);
+        DWORD mode = 0;
+        GetConsoleMode( stdinput, &mode );
+        mode &= ~disable_mode;
+        SetConsoleMode( stdinput, mode );
+    }
+
+    static void cls( HANDLE output_handle = stdoutput() )
+    {
+        COORD coord = { 0, 0 };
+        CONSOLE_SCREEN_BUFFER_INFOEX csbi;
+        csbi.cbSize = sizeof( CONSOLE_SCREEN_BUFFER_INFOEX );
+        GetConsoleScreenBufferInfoEx( output_handle, &csbi );
+        CHAR_INFO ch;
+        ch.Attributes = csbi.wAttributes;
+        ch.Char.UnicodeChar = L' ';
+        SMALL_RECT wrige_region;
+        WriteConsoleOutput( output_handle, &ch, csbi.dwSize, coord, &wrige_region ); 
+    }
 };
 
 
