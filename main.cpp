@@ -11,6 +11,7 @@
 #include "TestWriteConsoleOutput.h"
 #include "TestWriteConsoleOutputCharacter.h"
 #include "TestReadConsole.h"
+#include "TestWinEvents.h"
 
 
 void main()
@@ -46,7 +47,7 @@ void main()
         TestWriteConsoleOutput test;
     }
 
-    if ( 1 )
+    if ( 0 )
     {
         TestWriteConsoleOutputCharacter test;
     }
@@ -54,6 +55,11 @@ void main()
     if ( 0 )
     {
         TestReadConsole test;
+    }
+
+    if ( 1 )
+    {
+        TestWinEvents test;
     }
 
     _getch();

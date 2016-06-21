@@ -189,6 +189,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TestWinEvents.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\TestWriteConsole.cpp"
 				>
 			</File>
@@ -252,6 +256,10 @@
 			</File>
 			<File
 				RelativePath=".\TestSetConsoleMode.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TestWinEvents.h"
 				>
 			</File>
 			<File

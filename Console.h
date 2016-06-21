@@ -190,17 +190,13 @@ public:
         CONSOLE_SCREEN_BUFFER_INFOEX csbi;
         csbi.cbSize = sizeof( CONSOLE_SCREEN_BUFFER_INFOEX );
         GetConsoleScreenBufferInfoEx( output_handle, &csbi );
-        size_t buf_size = csbi.dwSize.X * csbi.dwSize.Y;
-        CHAR_INFO* buf = new CHAR_INFO[buf_size];
-        for ( size_t i = 0; i < buf_size; ++i )
-        {
-            buf[i].Attributes = csbi.wAttributes;
-            buf[i].Char.UnicodeChar = L' ';
-        }
+        CHAR_INFO ch;
+        ch.Attributes = csbi.wAttributes;
+        ch.Char.UnicodeChar = L' ';
+        std::vector<CHAR_INFO> buf( csbi.dwSize.X * csbi.dwSize.Y, ch );
         SMALL_RECT wrige_region = { 0, 0, csbi.dwSize.X - 1, csbi.dwSize.Y - 1 };
-        WriteConsoleOutput( output_handle, buf, csbi.dwSize, coord, &wrige_region );
-        delete[] buf;
-        buf = NULL;
+        WriteConsoleOutput( output_handle, &buf[0], csbi.dwSize, coord, &wrige_region );
+        SetConsoleCursorPosition( output_handle, coord );
     }
 
     static void cls2( HANDLE output_handle = stdoutput() )
@@ -209,13 +205,9 @@ public:
         COORD coord = { 0, 0 };
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         GetConsoleScreenBufferInfo( output_handle, &csbi );
-        size_t buf_size = csbi.dwSize.X * csbi.dwSize.Y;
-        wchar_t* buf = new wchar_t[buf_size];
-        for ( size_t i = 0; i < buf_size; ++i )
-        {
-            buf[i] = L' ';
-        }
-        WriteConsoleOutputCharacter( output_handle, buf, buf_size, coord, &written );
+        std::wstring buf( csbi.dwSize.X * csbi.dwSize.Y, L' ' );
+        WriteConsoleOutputCharacter( output_handle, buf.c_str(), buf.size(), coord, &written );
+        SetConsoleCursorPosition( output_handle, coord );
     }
 
 };

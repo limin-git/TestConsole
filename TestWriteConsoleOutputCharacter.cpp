@@ -4,9 +4,12 @@
 
 
 TestWriteConsoleOutputCharacter::TestWriteConsoleOutputCharacter()
-{
+    : cout( GetStdHandle( STD_OUTPUT_HANDLE ) ),
+      cin( GetStdHandle( STD_INPUT_HANDLE ) )
+{    
     //test1();
-    write_center_test();
+    //write_center_test();
+    cls_test();
 }
 
 
@@ -71,4 +74,26 @@ std::string TestWriteConsoleOutputCharacter::to_string( const std ::wstring& ws,
     static char buffer[ size];
     WideCharToMultiByte( code_page , 0, ws. c_str(), - 1, buffer , size, 0, 0 );
     return std ::string( buffer );
+}
+
+
+void TestWriteConsoleOutputCharacter::cls( HANDLE output )
+{
+    DWORD written = 0;
+    COORD coord = { 0, 0 };
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo( output, &csbi );
+    std::wstring ws( csbi.dwSize.X * csbi.dwSize.Y, L' ' );
+    WriteConsoleOutputCharacterW( output, ws.c_str(), ws.size(), coord, &written );
+    SetConsoleCursorPosition( output, coord );
+}
+
+
+void TestWriteConsoleOutputCharacter::cls_test()
+{
+    std::cout << "will clear screen" << std::endl;
+    _getch();
+    cls( cout );
+    _getch();
+    std::cout << "hello, world!" << std::endl;
 }
