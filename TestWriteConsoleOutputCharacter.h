@@ -12,7 +12,8 @@ public:
 public:
 
     void write_center( const std::string& s, HANDLE output );
-    void write_center_test();
+    void write_center_test_1();
+    void write_center_test_2();
 
 public:
 

@@ -6,7 +6,8 @@
 TestWriteConsoleOutputCharacter::TestWriteConsoleOutputCharacter()
 {
     //test1();
-    write_center_test();
+    write_center_test_1();
+    //write_center_test_2();
 }
 
 
@@ -28,13 +29,19 @@ void TestWriteConsoleOutputCharacter::write_center( const std::string& s, HANDLE
     GetConsoleScreenBufferInfo( output, &csbi );
     size_t window_width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
     size_t window_height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+    if ( 0 == ( window_height % 2 ) )
+    {
+        --window_height;
+    }
+
     size_t pos = ( window_width * window_height - as.size() ) / 2;
     COORD coord = { pos % window_width, pos / window_width };
     WriteConsoleOutputCharacter( output, ws.c_str(), ws.size(), coord, &written );
 }
 
 
-void TestWriteConsoleOutputCharacter::write_center_test()
+void TestWriteConsoleOutputCharacter::write_center_test_1()
 {
     HANDLE stdinput = GetStdHandle( STD_INPUT_HANDLE );
     HANDLE stdoutput = GetStdHandle( STD_OUTPUT_HANDLE );
@@ -52,6 +59,27 @@ void TestWriteConsoleOutputCharacter::write_center_test()
         _getch();
         Console::cls2( new_handle );
         SetConsoleActiveScreenBuffer( stdoutput );
+    }
+}
+
+
+void TestWriteConsoleOutputCharacter::write_center_test_2()
+{
+    HANDLE stdinput = GetStdHandle( STD_INPUT_HANDLE );
+    HANDLE stdoutput = GetStdHandle( STD_OUTPUT_HANDLE );
+    HANDLE new_handle = CreateConsoleScreenBuffer( GENERIC_READ | GENERIC_WRITE, 0, 0, CONSOLE_TEXTMODE_BUFFER, 0 );
+    //SetConsoleActiveScreenBuffer( new_handle );
+
+    while ( true )
+    {
+        DWORD num_read = 0;
+        wchar_t buf[1024] = { 0 };
+        ReadConsoleW( stdinput, buf, 1024, &num_read, NULL );
+        buf[num_read -1] = buf[num_read -2] = 0;
+        std::string s = to_string( buf, CP_UTF8 );
+        write_center( s, new_handle );
+        _getch();
+        Console::cls2( new_handle );
     }
 }
 
