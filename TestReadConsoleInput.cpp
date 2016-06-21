@@ -6,22 +6,9 @@
 
 TestReadConsoleInput::TestReadConsoleInput()
 {
-    if ( 0 )
-    {
-        test1();
-    }
-    else
-    {
-        while ( true )
-        {
-            std::string cmd = wait_review();
-            if ( cmd.empty() )
-            {
-                cmd = "next";
-            }
-            std::cout << cmd << std::endl;
-        }
-    }
+    //test1();
+    //wait_review_test();
+    wait_review_test_2();
 }
 
 static void DisbleQuickEditMode()
@@ -180,7 +167,7 @@ std::string TestReadConsoleInput::wait_review()
                         case VK_OEM_COMMA:      // ,<
                             return "back";
                         }
-                        return "";
+                        return "next";
                     }
                     break;
                 }
@@ -195,7 +182,7 @@ std::string TestReadConsoleInput::wait_review()
                         case RIGHTMOST_BUTTON_PRESSED:
                             return "back";
                         case FROM_LEFT_1ST_BUTTON_PRESSED:
-                            return "";
+                            return "next";
                         }
                         break;
                     case DOUBLE_CLICK:
@@ -212,5 +199,42 @@ std::string TestReadConsoleInput::wait_review()
         }
     }
 
-    return "";
+    return "next";
+}
+
+
+void TestReadConsoleInput::wait_review_test()
+{
+    while ( true )
+    {
+        std::string cmd = wait_review();
+        if ( cmd.empty() )
+        {
+            cmd = "next";
+        }
+        std::cout << cmd << std::endl;
+    }
+}
+
+
+void TestReadConsoleInput::wait_review_test_2()
+{
+    std::cout << "will use new buffer..." << std::endl;
+    _getch();
+    HANDLE stdoutput = GetStdHandle( STD_OUTPUT_HANDLE );
+    HANDLE new_buffer = CreateConsoleScreenBuffer( GENERIC_READ | GENERIC_WRITE, 0, 0, CONSOLE_TEXTMODE_BUFFER, 0 );
+    SetConsoleActiveScreenBuffer( new_buffer );
+    Console::show_cursor( FALSE, new_buffer );
+
+    std::string cmd;
+
+    while ( cmd != "quit\n" )
+    {
+        cmd = wait_review();
+        cmd.push_back( '\n' );
+        WriteConsoleA( new_buffer, cmd.c_str(), cmd.size(), 0, 0 );
+    }
+
+    SetConsoleActiveScreenBuffer( stdoutput );
+    CloseHandle( new_buffer );
 }

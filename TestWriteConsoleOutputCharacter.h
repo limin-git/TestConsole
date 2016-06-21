@@ -12,9 +12,14 @@ public:
 public:
 
     void write_center( const std::string& s, HANDLE output );
+<<<<<<< HEAD
     void write_center_test();
     void cls( HANDLE output );
     void cls_test();
+=======
+    void write_center_test_1();
+    void write_center_test_2();
+>>>>>>> origin/master
 
 public:
 

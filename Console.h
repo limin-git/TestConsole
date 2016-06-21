@@ -1,10 +1,6 @@
 #pragma once
 
 
-//HANDLE std_output = GetStdHandle( STD_OUTPUT_HANDLE );
-//HANDLE std_input = GetStdHandle( STD_INPUT_HANDLE );
-
-
 class Console
 {
 public:
@@ -31,6 +27,20 @@ public:
             cursor_info.bVisible = visible;
             SetConsoleCursorInfo( output_handle, &cursor_info );
         }
+    }
+
+    static std::wstring to_wstring( const std ::string& s, int code_page )
+    {
+        static wchar_t buffer[ 1024 * 1024];
+        MultiByteToWideChar( code_page , 0, s. c_str(), - 1, buffer , 1024 * 1024 );
+        return std ::wstring( buffer );
+    }
+
+    static std::string to_string( const std ::wstring& ws, int code_page )
+    {
+        static char buffer[ 1024 * 1024];
+        WideCharToMultiByte( code_page , 0, ws. c_str(), - 1, buffer , 1024 * 1024, 0, 0 );
+        return std ::string( buffer );
     }
 
     static void fix_utf8_output( HANDLE output_handle = stdoutput() )
@@ -210,6 +220,25 @@ public:
         SetConsoleCursorPosition( output_handle, coord );
     }
 
+    static void write_center( const std::string& s, int code_page, HANDLE output )
+    {
+        std::wstring ws = to_wstring( s, code_page );
+        std::string as = ( 936 == code_page ? s : to_string( ws, 936 ) );
+        DWORD written = 0;
+        CONSOLE_SCREEN_BUFFER_INFO csbi;
+        GetConsoleScreenBufferInfo( output, &csbi );
+        size_t window_width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+        size_t window_height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+        if ( 0 == ( window_height % 2 ) )
+        {
+            --window_height;
+        }
+
+        size_t pos = ( window_width * window_height - as.size() ) / 2;
+        COORD coord = { pos % window_width, pos / window_width };
+        WriteConsoleOutputCharacter( output, ws.c_str(), ws.size(), coord, &written );
+    }
 };
 
 
