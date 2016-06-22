@@ -8,13 +8,9 @@ TestWriteConsoleOutputCharacter::TestWriteConsoleOutputCharacter()
       cin( GetStdHandle( STD_INPUT_HANDLE ) )
 {    
     //test1();
-<<<<<<< HEAD
-    //write_center_test();
     cls_test();
-=======
-    write_center_test_1();
+    //write_center_test_1();
     //write_center_test_2();
->>>>>>> origin/master
 }
 
 

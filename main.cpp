@@ -57,7 +57,7 @@ void main()
         TestReadConsole test;
     }
 
-    if ( 1 )
+    if ( 0 )
     {
         TestWinEvents test;
     }
