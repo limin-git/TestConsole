@@ -61,6 +61,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
+				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -133,6 +134,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
+				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -169,11 +171,23 @@
 			Name="src"
 			>
 			<File
+				RelativePath=".\TestAllocConsole.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\TestCreateConsoleScreenBuffer.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\TestGetConsoleMode.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TestGetConsoleWindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TestGetConsoleWindow.h"
 				>
 			</File>
 			<File
@@ -236,6 +250,10 @@
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TestAllocConsole.h"
 				>
 			</File>
 			<File

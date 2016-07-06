@@ -12,6 +12,8 @@
 #include "TestWriteConsoleOutputCharacter.h"
 #include "TestReadConsole.h"
 #include "TestWinEvents.h"
+#include "TestAllocConsole.h"
+#include "TestGetConsoleWindow.h"
 
 
 void main()
@@ -60,6 +62,16 @@ void main()
     if ( 0 )
     {
         TestWinEvents test;
+    }
+
+    if ( 0 )
+    {
+        TestAllocConsole test;
+    }
+
+    if ( 1 )
+    {
+        TestGetConsoleWindow test;
     }
 
     _getch();
